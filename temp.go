@@ -34,3 +34,33 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	if r.Method!="POST"{
+		http.ServeFile(w,r,"login.html")
+		return
+	}
+	username:=r.FormValue("username")
+	password:=r.FormValue("password")
+
+	var dbusername string
+	var dbpassword string
+
+	err:= db.QueryRow("SELECT username, password FROM users WHERE username=?",username).Scan(&dbusername,&dbpassword)
+	if err!=nil{
+		http.Redirect(w,r,"/login",http.StatusTemporaryRedirect)
+		return
+	}
+	err=bcrypt.CompareHashAndPassword([]byte(dbpassword),[]byte(password))
+	if err!=nil{
+		http.Redirect(w,r,"/login",http.StatusTemporaryRedirect)
+		return
+	}
+	w.Write([]byte("Hello!"+dbusername))
+
+}
+
+func Homepage(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w,r,"index.html")
+}
+
