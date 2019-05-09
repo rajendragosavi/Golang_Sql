@@ -64,3 +64,24 @@ func Homepage(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w,r,"index.html")
 }
 
+func Register(w http.ResponseWriter, r *http.Request){
+	http.ServeFile(w,r,"register.html")
+
+	var VoterID int16
+	var LastName string
+	var FirstName string
+	var State string
+	var City string
+	var Age string
+	var Sex string
+
+	_,err=db.Exec("INSERT INTO Voters(VoterID,LastName,FirstName,Age,Sex,State,City) VALUES(?,?,?,?,?,?,?,?)",VoterID,LastName,FirstName,Age,Sex,State,City)
+	if err!=nil{
+		http.Redirect(w,r,"/register",http.StatusTemporaryRedirect)
+		return
+	}
+	w.Write([]byte(" Registered Successully!"))
+
+}
+
+
