@@ -1,0 +1,122 @@
+******************Visual code studio settings.json *************************
+sudo code --user-data-dir="~/.vscode-root"
+
+{
+"go.gopath":"/Workspace/",
+"go.inferGopath": false,
+"http.proxy": "http://sjp2proxy.wipro.com",
+"go.toolsGopath": "/Workspace",
+}
+
+export GOPATH=/Workspace/
+export GOROOT=/usr/local/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+
+
+************** Base site for mysql installation *******************
+
+// https://support.rackspace.com/how-to/installing-mysql-server-on-ubuntu/
+// sql Formatter- http://sqlfiddle.com/#!9/6fa0c0
+
+
+********************* MYSQL COMMANDS ********************************
+
+/usr/bin/mysql -u root -p
+
+FLUSH PRIVILEGES;
+
+To list down the Users:-
+SELECT User, Host, authentication_string FROM mysql.user;
+
+Create database:- 
+CREATE DATABASE demodb;
+
+chosing database:-
+USE database_name;
+
+To crate a new User:-
+INSERT INTO mysql.user (User,Host,authentication_string,ssl_cipher,x509_issuer,x509_subject)VALUES('LoginUser','localhost',PASSWORD('LoginPassword'),'','','');
+
+
+To Grant the permission to user:-
+GRANT ALL PRIVILEGES ON db_name.* to user_name@localhost;
+
+
+To Create a Table:-
+
+
+CREATE TABLE CUSTOMERS(
+    ID   INT              NOT NULL,
+    LastName VARCHAR (20)     NOT NULL,
+    FirstName VARCHAR(255)              NOT NULL,
+    State  VArCHAR (255) ,
+    City   VARCHAR (255),       
+        PRIMARY KEY (ID)
+    );
+
+
+
+ CREATE TABLE VOTERS(
+    VoterID   INT              NOT NULL,
+    LastName VARCHAR (20)     NOT NULL,
+    FirstName VARCHAR(255)              NOT NULL,
+    State  VArCHAR (255) ,
+    City   VARCHAR (255),       
+        PRIMARY KEY (VoterID)
+    );
+
+
+CREATE TABLE users(
+    username VARCHAR (255)     NOT NULL,      
+    password VARCHAR (255)   NOT NULL
+    );
+
+
+
+// string format for db.Exec Command:-
+
+CREATE TABLE CUSTOMERS(ID   INT  NOT NULL, LastName VARCHAR (20)  NOT NULL,FirstName VARCHAR(255)  NOT NULL,State  VArCHAR (255) ,City   VARCHAR (255),  PRIMARY KEY (ID) );
+
+
+
+To describe the table:- 
+desc table_name;
+
+To Delete the table:-
+DROP TABLE table_name;
+
+
+Insert the values inside the table:-
+INSERT `Voters`(`VoterID`,`LastName`,`FirstName`,`State`,`City`)VALUES('12345','Virat','Kohli','Delhi','Kotla');
+
+See the values from the table:-
+SELECT *FROM table_name;
+
+Delete the data from the table:-
+
+case1:	
+DELETE FROM table_name
+WHERE condition;
+	
+case2:
+DELETE FROM table_name;
+
+case3:
+DELETE FROM table
+LIMIT row_count;
+
+
+
+************************Some Db function in Golang ***********************
+sql.Open
+db.Exec
+db.Querry
+db.Prepare- Prepare creates a prepared statement for later queries or executions.
+
+
+
+
+
+
+
