@@ -10,11 +10,15 @@ import (
 func main() {
 	fmt.Println("SQL server application")
 	db, err := sql.Open("mysql", "DEMOUSER:DEMOPASSWORD@tcp(127.0.0.1:3306)/Demodb")
-	//db should have database value
+	//db is an handler for the database
 	if err != nil {
 		panic(err.Error())
-	} else {
-		fmt.Println("Connected to SQL driver Successdfully!")
+	} 
+	//open connection for DB
+	err = db.Ping()
+	if err != nil {
+		log.Fatalln("Error Connecting Database")
+		panic(err.Error())
 	}
 
 	// Select the database
